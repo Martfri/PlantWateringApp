@@ -1,0 +1,72 @@
+﻿@using PlantWateringApp
+@model ICollection<PlantWateringData>
+
+@{
+    ViewBag.Title = "Chart";
+    Layout = "_Layout";
+}
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+const labels = [@Html.Raw(string.Join(',', Model.Select(_ => $"'{_.DateTime}'")))];
+const data = {
+  labels: [@Html.Raw(string.Join(',', Model.Select(_ => $"'{_.DateTime}'")))],
+  datasets: [
+    {
+      label: '@nameof(PlantWateringData.Humidity)',
+      data: [@Html.Raw(string.Join(',', Model.Select(_ => $"{_.Humidity}")))],
+      borderColor: 'red',
+      fill: false,
+      cubicInterpolationMode: 'monotone',
+      tension: 0.4
+    }, {
+      label: '@nameof(PlantWateringData.Threshold)',
+      data: [@Html.Raw(string.Join(',', Model.Select(_ => $"'{_.Threshold}'")))],
+      borderColor: 'blue',
+      fill: false,
+      cubicInterpolationMode: 'monotone',
+      tension: 0.4
+    }
+  ]
+};
+
+const config = {
+  type: 'line',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Plant Watering App Chart'
+      },
+    },
+    interaction: {
+      intersect: false,
+    },
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Value'
+        },
+        suggestedMin: 0,
+        suggestedMax: 1
+      }
+    }
+  },
+};
+
+  const ctx = document.getElementById('myChart');
+  new Chart(ctx, config);
+</script>
