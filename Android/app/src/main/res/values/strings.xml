@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PlantWateringApp</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_sethumidity">Set Humidity</string>
+    <string name="submit_humidity">Submit Humidity</string>
+    <string name="humidity_range">Required soil humidity in %</string>
+    <string name="humidity_range_val">Humidity range</string>
+</resources>
